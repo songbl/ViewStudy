@@ -10,15 +10,13 @@ import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
-import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
 public class ScrapeView extends View {
-
-    private static final String TAG = "ScratchCardView";
+    private static final String TAG = "songbl";
     private int width;
     private int height;
     private String text = "恭喜你，中奖啦....";
@@ -59,11 +57,9 @@ public class ScrapeView extends View {
         textPaint.setStyle(Paint.Style.FILL);
         textPaint.setTextSize(100);
         textPaint.setDither(true);
-        textPaint.setColor(Color.BLACK);
+        textPaint.setColor(Color.RED);
 
         path = new Path();
-
-
         bgBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.guide_one);//第一张图
     }
 
@@ -79,14 +75,12 @@ public class ScrapeView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-
         canvas.drawBitmap(bgBitmap, 0, 0, null);//底层图
         drawText(canvas);
-        drawPath();//这个path是绘制在myvanvas画布上的
+        drawPath();
         canvas.drawBitmap(myBitmap, 0, 0, null);
         super.onDraw(canvas);
         if (isFinish) {
-            Log.e("songbl", "=========");
             canvas.drawBitmap(bgBitmap, 0, 0, null);
             drawText(canvas);
         }
@@ -115,14 +109,17 @@ public class ScrapeView extends View {
                 downY = event.getY();
                 path.moveTo(downX, downY);
                 invalidate();
+                Log.e("songbl", "ACTION_DOWN downX===" + event.getX()+"ACTION_DOWN downY===" + event.getY() );
                 tempX = downX;
                 tempY = downY;
                 break;
             case MotionEvent.ACTION_MOVE:
+                Log.e("songbl", "移动在不断进行中.........");
                 float moveX = event.getX();
                 float moveY = event.getY();
                 path.quadTo(tempX, tempY, moveX, moveY);
                 invalidate();
+                Log.e("songbl", "ACTION_MOVE moveX===" + event.getX()+"ACTION_DOWN moveY===" + event.getY() );
 
                 movedDistance = moveX - tempX;
                 tempX = moveX;
@@ -138,10 +135,9 @@ public class ScrapeView extends View {
                     @Override
                     public void run() {
                         try {
-                            Log.e("songbl", "sumX===" + sumX + " ........... " + "width===" + width);
                             if (sumX > width * 2) {
                                 isFinish = true;
-                                Thread.sleep(800);
+                                Thread.sleep(500);
                                 postInvalidate();
                             }
                         } catch (InterruptedException e) {

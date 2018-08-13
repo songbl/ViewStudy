@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="bgChanged">
+        <attr name="bgColor" format="color"/>
+    </declare-styleable>
+    <declare-styleable name="lineCustom">
+        <attr name="dotToLeft" format="dimension"/>
+        <attr name="dotToTop" format="dimension"/>
+        <attr name="paintColor" format="color"/>
+        <attr name="startLineX" format="dimension"/>
+        <attr name="startLineY" format="dimension"/>
+        <attr name="endLineX" format="dimension"/>
+        <attr name="endLineY" format="dimension"/>
+    </declare-styleable>
+</resources>
